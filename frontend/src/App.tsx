@@ -20,7 +20,7 @@ import { settings } from './api/apiFootball';
 
 const h = async () => {
   const manifest = await axios.get(
-    'https://api.sportradar.us/soccer-images-t3/reuters/headshots/players/2022/manifest.json?api_key=vtzedxfp47w49gcmc3zej89m'
+    'https://api.sportradar.us/soccer-images-t3/reuters/ligue-1/headshots/players/2022/manifest.json?api_key=vtzedxfp47w49gcmc3zej89m'
   );
   // const hh = await axios.get(
   //   'https://api.sportradar.us/soccer-images-t3/reuters/ligue-1/full-body/players/{asset_id}/{file_name}.{format}?api_key={your_api_key}'
