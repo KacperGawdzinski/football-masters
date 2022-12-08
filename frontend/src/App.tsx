@@ -48,85 +48,169 @@ function App() {
             },
             justifyContent: 'center',
             margin: '30px auto 0 auto',
-            color: 'white',
-            width: '80%'
+            color: 'white'
           }}
         >
-          {' '}
-          <img
-            src={'https://media.api-sports.io/football/players/276.png'}
-            style={{ borderRadius: 10 }}
-          />
-          <Typography
-            variant="h1"
-            sx={{ alignSelf: 'center', margin: '0px 100px' }}
-          >
-            Neymar
-          </Typography>
-          <img
-            src={'https://media.api-sports.io/football/players/276.png'}
-            style={{ borderRadius: 10 }}
-          />
-        </Box>
-        <Box sx={{ mt: '30px' }}>
-          <Typography>name</Typography>
-          <Typography>surname</Typography>
-          <Typography>age</Typography>
-        </Box>
-
-        <Box sx={{ position: 'relative' }}>
-          <div
-            style={{
-              position: 'absolute',
-              minWidth: '100px',
-              top: 190,
-              left: 106,
-              color: 'white',
-              fontSize: 26
+          <Box
+            sx={{
+              width: '400px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'left'
             }}
           >
-            67%
-          </div>
-          <PieChart width={800} height={400}>
-            <Pie
-              data={data}
-              cx={120}
-              cy={200}
-              innerRadius={60}
-              outerRadius={80}
-              fill="#8884d8"
-              paddingAngle={5}
-              dataKey="value"
-            >
-              {data.map((entry, index) => (
-                <Cell
-                  stroke="transparent"
-                  key={`cell-${index}`}
-                  fill={COLORS[index % COLORS.length]}
-                />
-              ))}
-            </Pie>
+            <img
+              src={'https://media.api-sports.io/football/players/276.png'}
+              style={{ borderRadius: 10 }}
+            />
+          </Box>
+          <Box>
+            <Typography variant="h1">Neymar</Typography>
+            <Typography variant="h6" sx={{ textAlign: 'center' }}>
+              da Silva Santos Júnior
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              width: '400px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'right',
+              gap: '20px'
+            }}
+          >
+            <img
+              src={'https://media.api-sports.io/football/teams/85.png'}
+              style={{ borderRadius: 10 }}
+            />
+            <img
+              src={'https://media.api-sports.io/football/leagues/61.png'}
+              style={{ borderRadius: 10 }}
+            />
+          </Box>
+        </Box>
+        <Box sx={{ display: 'flex', color: 'white' }}>
+          <Box
+            sx={{
+              mt: '50px',
+              position: 'relative',
+              display: 'flex',
+              gap: '40px'
+            }}
+          >
+            <Box>
+              <Typography variant="h3" sx={{ textAlign: 'center' }}>
+                28
+              </Typography>
+              <Typography variant="h5" sx={{ textAlign: 'center' }}>
+                Age
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="h3" sx={{ textAlign: 'center' }}>
+                175cm
+              </Typography>
+              <Typography variant="h5" sx={{ textAlign: 'center' }}>
+                Height
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="h3" sx={{ textAlign: 'center' }}>
+                68kg
+              </Typography>
+              <Typography variant="h5" sx={{ textAlign: 'center' }}>
+                Weight
+              </Typography>
+            </Box>
+          </Box>
 
-            <Pie
-              data={data}
-              cx={420}
-              cy={200}
-              startAngle={180}
-              endAngle={0}
-              innerRadius={60}
-              outerRadius={80}
-              fill="#8884d8"
-              paddingAngle={5}
-              dataKey="value"
+          <Box sx={{ position: 'relative', margin: '0 auto' }}>
+            <div
+              style={{
+                position: 'absolute',
+                minWidth: '100px',
+                top: 90,
+                left: 87,
+                color: 'white',
+                fontSize: 26
+              }}
             >
-              {data.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={COLORS[index % COLORS.length]}
-                />
-              ))}
-            </Pie>
-          </PieChart>
+              67%
+            </div>
+            <PieChart width={200} height={200}>
+              <Pie
+                data={data}
+                cx={100}
+                cy={100}
+                innerRadius={60}
+                outerRadius={80}
+                fill="#8884d8"
+                paddingAngle={5}
+                dataKey="value"
+              >
+                {data.map((entry, index) => (
+                  <Cell
+                    stroke="transparent"
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
+
+              <Pie
+                data={data}
+                cx={420}
+                cy={200}
+                startAngle={180}
+                endAngle={0}
+                innerRadius={60}
+                outerRadius={80}
+                fill="#8884d8"
+                paddingAngle={5}
+                dataKey="value"
+              >
+                {data.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
+            </PieChart>
+          </Box>
+          <Box
+            sx={{
+              mt: '50px',
+              position: 'relative',
+              display: 'flex',
+              gap: '40px'
+            }}
+          >
+            <Box>
+              <Typography variant="h3" sx={{ textAlign: 'center' }}>
+                28
+              </Typography>
+              <Typography variant="h5" sx={{ textAlign: 'center' }}>
+                Age
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="h3" sx={{ textAlign: 'center' }}>
+                175cm
+              </Typography>
+              <Typography variant="h5" sx={{ textAlign: 'center' }}>
+                Height
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="h3" sx={{ textAlign: 'center' }}>
+                68kg
+              </Typography>
+              <Typography variant="h5" sx={{ textAlign: 'center' }}>
+                Weight
+              </Typography>
+            </Box>
+          </Box>
         </Box>
       </Container>
     </div>
