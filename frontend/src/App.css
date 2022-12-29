@@ -5,4 +5,24 @@
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 15px;
+}
+
+.site-background {
+    background: linear-gradient(90deg, rgba(53,98,33,1) 0%, rgba(20,203,59,1) 65%, rgba(63,116,30,1) 100%);
+    width: 100vw;
+    height: 100vh;
+}
+
+.player-image {
+    border-radius: 10px;
+}
+
+.flexbox {
+    display: flex;
+    margin: 0 auto;
+}
+
+.centered {
+    text-align: center;
 }

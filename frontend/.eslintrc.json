@@ -1,22 +1,23 @@
 {
-    "extends": [
-      "eslint:recommended", 
-      "plugin:react/recommended",
-      "plugin:@typescript-eslint/recommended"
-    ],
-    "plugins": ["prettier", "@typescript-eslint"],
-    "rules": {
-      "prettier/prettier": "error"
-    },
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-      "ecmaVersion": 2020,
-      "sourceType": "module"
-    },
-    "root": true,
-    "env": {
-      "node": true,
-      "es6": true
-    },
-    "ignorePatterns": ["node_modules", "build", "dist", "public"]
+  "extends": [
+    "eslint:recommended", 
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": ["prettier", "@typescript-eslint"],
+  "rules": {
+    "prettier/prettier": "error",
+    "react/react-in-jsx-scope": "off"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "root": true,
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "ignorePatterns": ["node_modules", "build", "dist", "public"]
 }
