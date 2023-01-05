@@ -1,13 +1,19 @@
 import { Box, Typography } from '@mui/material';
 import { Cell, Pie, PieChart } from 'recharts';
 
-const data = [
-  { name: 'Group A', value: 67 },
-  { name: 'Group B', value: 33 }
-];
-const COLORS = ['#c6f5d3', 'transparent'];
+const COLORS = ['#ECF87F', '#f5fcae'];
 
-const PlayerStatsChart = () => {
+interface Props {
+  attribute: string;
+  value: number;
+}
+
+const PlayerStatsChart = (props: Props) => {
+  const data = [
+    { name: 'Group A', value: props.value },
+    { name: 'Group B', value: 100 - props.value }
+  ];
+
   return (
     <Box sx={{ position: 'relative' }}>
       <div
@@ -16,11 +22,10 @@ const PlayerStatsChart = () => {
           // minWidth: '100px',
           top: 87,
           left: 85,
-          color: 'white',
           fontSize: 26
         }}
       >
-        67%
+        {`${props.value}%`}
       </div>
       <PieChart
         width={200}
@@ -63,7 +68,11 @@ const PlayerStatsChart = () => {
           ))}
         </Pie>
       </PieChart>
-      <Typography>xd</Typography>
+      <Typography
+        style={{ textAlign: 'center', fontSize: '18px', fontWeight: 'bold' }}
+      >
+        {props.attribute}
+      </Typography>
     </Box>
   );
 };

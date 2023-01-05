@@ -9,6 +9,7 @@ import {
   Grid,
   InputLabel,
   MenuItem,
+  Rating,
   Select,
   Typography
 } from '@mui/material';
@@ -19,6 +20,7 @@ import PlayerStatsChart from './components/PlayerStatsChart';
 import StatInfo from './components/StatInfo/StatInfo';
 import StatInfoGrid from './components/StatInfoGrid';
 import Stat from './dataTypes/Stat';
+import Card from './components/Card/Card';
 
 const stats: Stat[] = [
   {
@@ -41,8 +43,42 @@ const stats2: Stat[] = [
     value: '15'
   },
   {
-    attribute: 'Minutes',
-    value: '1322'
+    attribute: 'Lineups',
+    value: '15'
+  },
+  {
+    attribute: 'Appearences',
+    value: '15'
+  }
+];
+
+const stats3: Stat[] = [
+  {
+    attribute: 'Goals',
+    value: '13'
+  },
+  {
+    attribute: 'Assists',
+    value: '6'
+  },
+  {
+    attribute: 'Saves',
+    value: '0'
+  }
+];
+
+const stats4: Stat[] = [
+  {
+    attribute: 'Tackles',
+    value: '13'
+  },
+  {
+    attribute: 'Blocks',
+    value: '0'
+  },
+  {
+    attribute: 'Interceptions',
+    value: '4'
   }
 ];
 
@@ -63,7 +99,10 @@ function App() {
                 style={{ borderRadius: 10 }}
               />
             </Box>
-            <StatInfoGrid statistics={stats} />
+            <Grid container>
+              <StatInfoGrid statistics={stats} />
+              <StatInfoGrid statistics={stats2} />
+            </Grid>
           </Grid>
 
           <Grid item xs={4}>
@@ -72,23 +111,27 @@ function App() {
               <Typography variant="h6" sx={{ textAlign: 'center' }}>
                 da Silva Santos Júnior
               </Typography>
-              <FormControl style={{ marginTop: '40px', width: '200px' }}>
-                <InputLabel id="demo-simple-select-label">Season</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  // value={age}
-                  label="Age"
-                  // onChange={handleChange}
-                >
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                </Select>
-              </FormControl>
-              <Typography variant="h3" style={{ marginTop: '30px' }}>
+
+              <Typography variant="h3" style={{ marginTop: '50px' }}>
                 Attacker
               </Typography>
+              <Rating
+                name="half-rating-read"
+                defaultValue={4.4}
+                precision={0.1}
+                readOnly
+                size="large"
+              />
+              <Box
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  marginTop: '20px'
+                }}
+              >
+                <Card type={'yellow'} amount={3} />
+                <Card type={'red'} amount={0} />
+              </Box>
             </Box>
           </Grid>
           <Grid item xs={4}>
@@ -100,15 +143,36 @@ function App() {
                 width={150}
               />
             </Box>
-
-            <Box className="flexbox">
-              <StatInfoGrid statistics={stats2} />
-            </Box>
+            <Grid container>
+              <StatInfoGrid statistics={stats3} />
+              <StatInfoGrid statistics={stats4} />
+            </Grid>
           </Grid>
         </Grid>
-        <Box style={{ display: 'flex', justifyContent: 'space-around' }}>
-          <PlayerStatsChart></PlayerStatsChart>
-          <PlayerStatsChart></PlayerStatsChart>
+
+        <Box
+          style={{
+            display: 'flex',
+            justifyContent: 'space-around',
+            marginTop: '50px'
+          }}
+        >
+          <PlayerStatsChart
+            attribute={'Shot Accuracy'}
+            value={70}
+          ></PlayerStatsChart>
+          <PlayerStatsChart
+            attribute={'Pass accuracy'}
+            value={35}
+          ></PlayerStatsChart>
+          <PlayerStatsChart
+            attribute={'Dribble ratio'}
+            value={50}
+          ></PlayerStatsChart>
+          <PlayerStatsChart
+            attribute={'Pentalty ratio'}
+            value={50}
+          ></PlayerStatsChart>
         </Box>
       </Container>
     </div>

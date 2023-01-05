@@ -12,6 +12,9 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import '../App.css';
+import { FormControl, InputLabel, Select } from '@mui/material';
+import styled from 'styled-components';
 
 const pages = ['Home', 'Calendar', 'H2H', 'Leagues'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -39,11 +42,44 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
+  const CustomSelect = styled(Select)(() => ({
+    '&.MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: 'red'
+      },
+      '&:hover fieldset': {
+        borderColor: 'yellow'
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'green'
+      },
+      color: 'white',
+      '.MuiOutlinedInput-notchedOutline': {
+        borderColor: 'rgba(228, 219, 233, 0.25)'
+      },
+      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+        borderColor: 'rgba(228, 219, 233, 0.25)'
+      },
+      '&:hover .MuiOutlinedInput-notchedOutline': {
+        borderColor: 'rgba(228, 219, 233, 0.25)'
+      },
+      '.MuiSvgIcon-root ': {
+        fill: 'white !important'
+      },
+      '&.Mui-selected': { color: '#ffffff' }
+    },
+    color: 'white'
+  }));
+
   return (
-    <AppBar position="static" style={{ backgroundColor: 'transparent' }}>
+    <AppBar
+      position="static"
+      style={{ backgroundColor: 'transparent' }}
+      className="header"
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <img src="./logo.png" height={100} width={100} />
+          <img src="./logo4.png" width={250} />
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -99,7 +135,16 @@ function ResponsiveAppBar() {
           >
             LOGO
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: {
+                xs: 'none',
+                md: 'flex'
+              },
+              justifyContent: 'center'
+            }}
+          >
             {pages.map(page => (
               <Button
                 key={page}
@@ -116,7 +161,27 @@ function ResponsiveAppBar() {
               </Button>
             ))}
           </Box>
-
+          <FormControl
+            style={{
+              width: '200px',
+              marginRight: '25px'
+            }}
+          >
+            <InputLabel sx={{ color: 'white' }} id="demo-simple-select-label">
+              Season
+            </InputLabel>
+            <CustomSelect
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              // value={age}
+              label="Age"
+              // onChange={handleChange}
+            >
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </CustomSelect>
+          </FormControl>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

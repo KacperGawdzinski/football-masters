@@ -9,7 +9,7 @@
 }
 
 .site-background {
-    background: linear-gradient(90deg, rgba(53,98,33,1) 0%, rgba(20,203,59,1) 65%, rgba(63,116,30,1) 100%);
+    background-color: #77DD77;
     width: 100vw;
     height: 100vh;
 }
@@ -26,3 +26,9 @@
 .centered {
     text-align: center;
 }
+
+.header {
+    background: linear-gradient(90deg, rgba(53,98,33,1) 0%, rgba(20,203,59,1) 65%, rgba(63,116,30,1) 100%);
+    /* background-color: #28A228 !important; */
+}
+ 

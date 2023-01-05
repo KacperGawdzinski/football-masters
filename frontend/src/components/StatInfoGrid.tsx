@@ -8,17 +8,18 @@ interface Props {
 
 const StatInfoGrid = (props: Props) => {
   return (
+    // <Grid item style={{ marginTop: '20px' }}>
     <Grid
       container
-      justifyContent={'space-around'}
-      style={{ marginTop: '70px' }}
+      style={{ display: 'flex', justifyContent: 'space-between' }}
     >
       {props.statistics.map(stat => (
-        <Grid item key={stat.attribute}>
+        <Grid item key={stat.attribute} sx={{ width: '140px' }}>
           <StatInfo value={stat.value} attribute={stat.attribute}></StatInfo>
         </Grid>
       ))}
     </Grid>
+    // </Grid>
   );
 };
 
