@@ -15,6 +15,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import '../App.css';
 import { FormControl, InputLabel, Select } from '@mui/material';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const pages = ['Home', 'Calendar', 'H2H', 'Leagues'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -146,19 +147,24 @@ function ResponsiveAppBar() {
             }}
           >
             {pages.map(page => (
-              <Button
+              <Link
+                to={`/${page}`}
                 key={page}
-                onClick={handleCloseNavMenu}
-                sx={{
-                  my: 2,
-                  mx: 5,
-                  color: 'white',
-                  display: 'block',
-                  fontSize: 18
-                }}
+                style={{ textDecoration: 'none' }}
               >
-                {page}
-              </Button>
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{
+                    my: 2,
+                    mx: 5,
+                    color: 'white',
+                    display: 'block',
+                    fontSize: 18
+                  }}
+                >
+                  {page}
+                </Button>
+              </Link>
             ))}
           </Box>
           <FormControl

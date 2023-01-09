@@ -6,12 +6,23 @@
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 15px;
+    margin-top: 80px;
+    min-width: 90%;
+}
+
+@media screen and (min-width: 2560px) {
+    .glass {
+        min-width: 65%;
+    }
 }
 
 .site-background {
     background-color: #77DD77;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 .player-image {
@@ -28,7 +39,6 @@
 }
 
 .header {
-    background: linear-gradient(90deg, rgba(53,98,33,1) 0%, rgba(20,203,59,1) 65%, rgba(63,116,30,1) 100%);
+    background: linear-gradient(90deg, rgba(53, 98, 33, 1) 0%, rgba(20, 203, 59, 1) 65%, rgba(63, 116, 30, 1) 100%);
     /* background-color: #28A228 !important; */
 }
- 

@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
-import Stat from '../dataTypes/Stat';
-import StatInfo from './StatInfo/StatInfo';
+import Stat from '../../dataTypes/Stat';
+import StatInfo from './StatInfo';
 
 interface Props {
   statistics: Stat[];
@@ -8,7 +8,6 @@ interface Props {
 
 const StatInfoGrid = (props: Props) => {
   return (
-    // <Grid item style={{ marginTop: '20px' }}>
     <Grid
       container
       style={{ display: 'flex', justifyContent: 'space-between' }}
@@ -19,7 +18,6 @@ const StatInfoGrid = (props: Props) => {
         </Grid>
       ))}
     </Grid>
-    // </Grid>
   );
 };
 

@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import styled from 'styled-components';
+import capitalizeFirstLetter from '../../utils/capitalizeFirstLetter';
 
 interface Props {
   attribute: string;
@@ -16,18 +17,20 @@ const StatBox = styled(Typography)<{ attribute: string }>`
   text-align: center;
   &:after {
     content: '${props => attributeToMetric.get(props.attribute)}';
-    font-size: 32px;
+    font-size: 30px;
   }
 `;
 
 const StatInfo = (props: Props) => {
+  const index = props.value.search(/[A-Za-z]/);
+
   return (
     <Box style={{ margin: '40px 0 0 0' }}>
-      <StatBox variant="h3" attribute={props.attribute}>
-        {props.value}
+      <StatBox variant="h3" attribute={capitalizeFirstLetter(props.attribute)}>
+        {index === -1 ? props.value : props.value.substring(0, index)}
       </StatBox>
       <Typography variant="h5" style={{ textAlign: 'center' }}>
-        {props.attribute}
+        {capitalizeFirstLetter(props.attribute)}
       </Typography>
     </Box>
   );

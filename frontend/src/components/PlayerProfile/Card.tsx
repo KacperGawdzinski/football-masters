@@ -9,7 +9,9 @@ const Card = (props: Props) => {
   return (
     <Box>
       <img src={`./${props.type}.png`} width={50} />
-      <Typography variant="h5">{props.amount}</Typography>
+      <Typography variant="h5" style={{ textAlign: 'center' }}>
+        {props.amount}
+      </Typography>
     </Box>
   );
 };
