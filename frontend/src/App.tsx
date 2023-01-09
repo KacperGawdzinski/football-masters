@@ -3,7 +3,8 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import PlayerProfile from './components/PlayerProfile/PlayerProfile';
 import { Box, Container, styled } from '@mui/material';
-import LeagueList from './components/LeagueList/LeagueList';
+import LeagueList from './components/League/LeagueList';
+import LeagueTable from './components/League/LeagueTable';
 
 const SiteContainer = styled(Box)({
   backgroundColor: '#77DD77',
@@ -29,6 +30,8 @@ function App() {
               element={<PlayerProfile playerId={274} season={2020} />}
             />
             <Route path="/leagues" element={<LeagueList />} />
+            <Route path="/leagues/:id" element={<LeagueTable />} />
+
             {/* <Route path="*" element={<NoPage />} /> */}
             {/* </Route> */}
           </Routes>

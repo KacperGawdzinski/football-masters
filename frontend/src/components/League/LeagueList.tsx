@@ -1,8 +1,7 @@
 import { Box, LinearProgress, styled, Typography } from '@mui/material';
-import { border, Container } from '@mui/system';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { transform } from 'typescript';
+import { Link } from 'react-router-dom';
 import { API_SPORTS_KEY } from '../../config';
 
 const LeagueMap = new Map<number, string>([
@@ -115,6 +114,7 @@ const LeagueList = () => {
   return (
     <Box>
       <Typography variant="h4">Most popular leagues</Typography>
+
       <Box
         style={{
           display: 'flex',
@@ -126,15 +126,21 @@ const LeagueList = () => {
         {leagueData ? (
           leagueData.map(leagueData => {
             return (
-              <Logo key={leagueData.league.id}>
-                <img src={leagueData.league.logo} height={150}></img>
-                <Typography
-                  variant="h6"
-                  style={{ textAlign: 'center', marginTop: '20px' }}
-                >
-                  {leagueData.league.name}
-                </Typography>
-              </Logo>
+              <Link
+                key={leagueData.league.id}
+                to={`./${leagueData.league.id}`}
+                style={{ textDecoration: 'none', color: 'black' }}
+              >
+                <Logo>
+                  <img src={leagueData.league.logo} height={150}></img>
+                  <Typography
+                    variant="h6"
+                    style={{ textAlign: 'center', marginTop: '20px' }}
+                  >
+                    {leagueData.league.name}
+                  </Typography>
+                </Logo>
+              </Link>
             );
           })
         ) : (

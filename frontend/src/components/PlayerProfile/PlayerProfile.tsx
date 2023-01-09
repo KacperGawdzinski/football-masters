@@ -33,7 +33,7 @@ function PlayerProfile(props: Props) {
   const [playerData, setPlayerData] = useState<PlayerData>();
   useEffect(() => {
     const fetchPlayerData = async () => {
-      const respo = await axios.get(
+      const response = await axios.get(
         'https://api-football-v1.p.rapidapi.com/v3/players',
         {
           params: { id: props.playerId, season: props.season },
@@ -43,7 +43,7 @@ function PlayerProfile(props: Props) {
           }
         }
       );
-      setPlayerData(respo.data.response[0]);
+      setPlayerData(response.data.response[0]);
     };
     fetchPlayerData();
   }, []);
