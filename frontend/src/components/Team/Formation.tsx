@@ -6,10 +6,9 @@ interface Props {
 
 const Formation = (props: Props) => {
   const formationNumbers = props.formationString.split('-');
-  console.log(formationNumbers);
 
   return (
-    <div style={{ height: '650px', width: '400px' }}>
+    <div style={{ height: '650px', maxWidth: '400px' }}>
       <div
         style={{
           position: 'relative',
@@ -27,7 +26,10 @@ const Formation = (props: Props) => {
                 style={{
                   width: '100%',
                   position: 'absolute',
-                  top: idx * (500 / formationNumbers.length) + 98,
+                  top:
+                    formationNumbers.length === 3
+                      ? idx * (400 / formationNumbers.length) + 165
+                      : idx * (500 / formationNumbers.length) + 98,
                   border: '2px solid black'
                 }}
               ></hr>
@@ -37,7 +39,10 @@ const Formation = (props: Props) => {
                   display: 'flex',
                   justifyContent: 'space-around',
                   position: 'absolute',
-                  top: idx * (500 / formationNumbers.length) + 73,
+                  top:
+                    formationNumbers.length === 3
+                      ? idx * (400 / formationNumbers.length) + 140
+                      : idx * (500 / formationNumbers.length) + 73,
                   width: '100%'
                 }}
               >

@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Breadcrumbs, Container, Typography } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Carousel from 'react-multi-carousel';
@@ -16,11 +16,11 @@ import {
   CartesianGrid,
   XAxis,
   YAxis,
-  Legend,
   Line,
-  Tooltip,
-  Bar
+  Label
 } from 'recharts';
+import BreadcrumbsLink from '../styledComponents/BreadcrumpsLink';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 interface Squad {
   team: {
@@ -209,9 +209,6 @@ const TeamPage = () => {
           }
         }
       );
-      const x = response.data.response as Team;
-      console.log(x.lineups[0].formation);
-
       setTeamData(response.data.response);
     };
     fetchSquadData();
@@ -248,10 +245,6 @@ const TeamPage = () => {
     }
   ];
 
-  if (squadData) {
-    console.log(squadData.players);
-  }
-
   const data = [
     {
       x: 'Lose',
@@ -284,15 +277,56 @@ const TeamPage = () => {
 
   return (
     <Container className="glass">
-      <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Box style={{ flexGrow: 1 }}>
-          <Box style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
+      {squadData && teamData ? (
+        <Box>
+          <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />}>
+            <BreadcrumbsLink to="/leagues">Leagues</BreadcrumbsLink>
+            <BreadcrumbsLink to={`/leagues/${teamData.league.id}`}>
+              {teamData.league.name}
+            </BreadcrumbsLink>
+            <Typography color="text.primary">{teamData.team.name}</Typography>
+          </Breadcrumbs>
+          <Box
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '30px',
+              margin: '20px 0px 0px 20px'
+            }}
+          >
             <img src={squadData?.team.logo} />
             <Typography variant="h2">{squadData?.team.name}</Typography>
           </Box>
-          <Box style={{ display: 'flex' }}>
-            <Box>
-              <Box style={{ marginTop: '40px' }}>
+          <Box
+            style={{
+              display: 'flex',
+              justifyContent: 'space-around',
+              marginTop: '20px'
+            }}
+          >
+            {teamData ? (
+              <Formation
+                formationString={teamData?.lineups[0].formation}
+              ></Formation>
+            ) : null}
+            <Box
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignContent: 'center',
+                justifyContent: 'center',
+                minWidth: '500px'
+              }}
+            >
+              <Box
+                style={{
+                  marginTop: '40px',
+                  maxWidth: '500px',
+                  flexDirection: 'column',
+                  alignContent: 'center',
+                  margin: '0 auto'
+                }}
+              >
                 <Typography
                   variant="h4"
                   style={{ textAlign: 'center', marginBottom: '10px' }}
@@ -301,7 +335,15 @@ const TeamPage = () => {
                 </Typography>
                 <StatInfoGrid statistics={homeStats} />
               </Box>
-              <Box style={{ marginTop: '90px' }}>
+              <Box
+                style={{
+                  marginTop: '50px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignContent: 'center',
+                  margin: '20px auto'
+                }}
+              >
                 <Typography
                   variant="h4"
                   style={{ textAlign: 'center', marginBottom: '10px' }}
@@ -310,70 +352,94 @@ const TeamPage = () => {
                 </Typography>
                 <StatInfoGrid statistics={awayStats} />
               </Box>
+              <Box style={{ marginTop: '30px' }}>
+                <ResponsiveContainer width="100%" height={150}>
+                  <LineChart
+                    data={data}
+                    margin={{
+                      top: 5,
+                      right: 30,
+                      left: 20,
+                      bottom: 5
+                    }}
+                  >
+                    <CartesianGrid stroke="#535555" strokeDasharray="5 5" />
+                    <XAxis tick={false} stroke="black">
+                      <Label value="Last games" />
+                    </XAxis>
+                    <YAxis type="category" dataKey={'x'} stroke="black" />
+                    <Line
+                      type="linear"
+                      dataKey={'result'}
+                      stroke="black"
+                      strokeWidth={2}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </Box>
             </Box>
             {teamData ? (
-              <Box style={{ flexGrow: 1 }}>
+              <Box
+                style={{
+                  marginTop: '50px',
+                  marginRight: '40px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignContent: 'center',
+                  gap: '30px'
+                }}
+              >
                 <PlayerStatsChart
                   attribute="Penalty ratio"
                   value={
-                    teamData.penalty.scored.total /
-                      (teamData.penalty.scored.total +
-                        teamData.penalty.missed.total) || 100
+                    Math.round(
+                      (teamData.penalty.scored.total /
+                        (teamData.penalty.scored.total +
+                          teamData.penalty.missed.total)) *
+                        100
+                    ) || 100
                   }
                 ></PlayerStatsChart>
                 <PlayerStatsChart
                   attribute="Clean sheet"
                   value={
-                    (teamData.clean_sheet.total /
-                      teamData.fixtures.played.total) *
-                      100 || 100
+                    Math.round(
+                      (teamData.clean_sheet.total /
+                        teamData.fixtures.played.total) *
+                        100
+                    ) || 100
                   }
                 ></PlayerStatsChart>
               </Box>
             ) : null}
           </Box>
-        </Box>
 
-        {teamData ? (
-          <Formation
-            formationString={teamData?.lineups[0].formation}
-          ></Formation>
-        ) : null}
-      </Box>
-      <LineChart
-        width={500}
-        height={150}
-        data={data}
-        margin={{
-          top: 5,
-          right: 30,
-          left: 20,
-          bottom: 5
-        }}
-      >
-        <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-        <XAxis />
-        <YAxis type="category" dataKey={'x'} />
-        <Line type="linear" dataKey={'result'} stroke="black" strokeWidth={2} />
-      </LineChart>
-      {squadData ? (
-        <Box>
-          {positions.map(position => (
-            <Box key={position}>
-              <Typography variant="h4" style={{ margin: '0px 0px 10px 14px' }}>
-                {`${position}s`}
-              </Typography>
-              <Carousel responsive={responsive}>
-                {squadData.players
-                  .filter(player => player.position === position)
-                  .map(player => {
-                    return (
-                      <PlayerTile key={player.id} player={player}></PlayerTile>
-                    );
-                  })}
-              </Carousel>
+          {squadData ? (
+            <Box style={{ marginTop: '30px' }}>
+              {positions.map(position => (
+                <Box key={position}>
+                  <Typography
+                    variant="h4"
+                    style={{ margin: '0px 0px 10px 14px' }}
+                  >
+                    {`${position}s`}
+                  </Typography>
+                  <Carousel responsive={responsive}>
+                    {squadData.players
+                      .filter(player => player.position === position)
+                      .map(player => {
+                        return (
+                          <PlayerTile
+                            key={player.id}
+                            player={player}
+                          ></PlayerTile>
+                        );
+                      })}
+                  </Carousel>
+                </Box>
+              ))}
             </Box>
-          ))}
+          ) : null}
         </Box>
       ) : null}
     </Container>

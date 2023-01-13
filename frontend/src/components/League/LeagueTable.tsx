@@ -6,7 +6,9 @@ import {
   TableCell,
   TableBody,
   styled,
-  Container
+  Container,
+  Breadcrumbs,
+  Typography
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -16,6 +18,7 @@ import { API_SPORTS_KEY } from '../../config';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DoDisturbOnIcon from '@mui/icons-material/DoDisturbOn';
 import CancelIcon from '@mui/icons-material/Cancel';
+import BreadcrumbsLink from '../styledComponents/BreadcrumpsLink';
 
 interface StandingData {
   rank: number;

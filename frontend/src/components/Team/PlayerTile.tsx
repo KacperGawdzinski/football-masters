@@ -1,6 +1,6 @@
 import { styled, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 interface Props {
   player: {
@@ -33,7 +33,11 @@ const PlayerTile = (props: Props) => {
   }
 
   return (
-    <Link to={`/player/${props.player.id}`} style={{ textDecoration: 'none' }}>
+    <Link
+      to={`/player/${props.player.id}`}
+      style={{ textDecoration: 'none', userSelect: 'none' }}
+      draggable={false}
+    >
       <PlayerBox>
         <Typography variant="h6" style={{ textAlign: 'center' }}>
           {props.player.name}
