@@ -1,14 +1,14 @@
 import {
   TableContainer,
-  Paper,
   Table,
   TableHead,
   TableRow,
   TableCell,
   TableBody,
-  Container,
-  styled
+  styled,
+  Container
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -43,7 +43,8 @@ interface StandingData {
 }
 
 const StandingsTableCell = styled(TableCell)({
-  borderBottom: '1px solid black'
+  borderBottom: '1px solid black',
+  borderCollapse: 'unset'
 });
 
 const StandingsTableRow = styled(TableRow)({
@@ -67,13 +68,14 @@ interface LeagueData {
 const LeagueTable = () => {
   const [leagueData, setLeagueData] = useState<LeagueData>();
   const params = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchLeagueData = async () => {
       const response = await axios.get(
         'https://api-football-v1.p.rapidapi.com/v3/standings',
         {
-          params: { league: params.id, season: 2022 },
+          params: { league: params.league_id, season: 2022 },
           headers: {
             'X-RapidAPI-Key': API_SPORTS_KEY,
             'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com'
@@ -86,98 +88,131 @@ const LeagueTable = () => {
   }, []);
 
   return (
-    <TableContainer style={{ padding: '0 50px' }}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <StandingsTableCell>No</StandingsTableCell>
-            <StandingsTableCell></StandingsTableCell>
-            <StandingsTableCell align="left" style={{ width: '30%' }}>
-              Club
-            </StandingsTableCell>
-            <StandingsTableCell align="center">MP</StandingsTableCell>
-            <StandingsTableCell align="center">W</StandingsTableCell>
-            <StandingsTableCell align="center">D</StandingsTableCell>
-            <StandingsTableCell align="center">L</StandingsTableCell>
-            <StandingsTableCell align="center">GS</StandingsTableCell>
-            <StandingsTableCell align="center">GL</StandingsTableCell>
-            <StandingsTableCell align="center">GD</StandingsTableCell>
-            <StandingsTableCell align="center">Points</StandingsTableCell>
-            <StandingsTableCell align="center">Form</StandingsTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {leagueData
-            ? leagueData.standings[0].map(standing => {
-                return (
-                  <StandingsTableRow
-                    key={standing.team.id}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <StandingsTableCell component="th" scope="row">
-                      {standing.rank}
-                    </StandingsTableCell>
-                    <StandingsTableCell align="left">
-                      {' '}
-                      <img src={standing.team.logo} height={50}></img>
-                    </StandingsTableCell>
-                    <StandingsTableCell align="left">
-                      {' '}
-                      {standing.team.name}
-                    </StandingsTableCell>
-                    <StandingsTableCell align="center">
-                      {standing.all.played}
-                    </StandingsTableCell>
-                    <StandingsTableCell align="center">
-                      {' '}
-                      {standing.all.win}
-                    </StandingsTableCell>
-                    <StandingsTableCell align="center">
-                      {' '}
-                      {standing.all.draw}
-                    </StandingsTableCell>
-                    <StandingsTableCell align="center">
-                      {' '}
-                      {standing.all.lose}
-                    </StandingsTableCell>
-                    <StandingsTableCell align="center">
-                      {standing.all.goals.for}
-                    </StandingsTableCell>
-                    <StandingsTableCell align="center">
-                      {standing.all.goals.against}
-                    </StandingsTableCell>
-                    <StandingsTableCell align="center">
-                      {standing.goalsDiff}
-                    </StandingsTableCell>
-                    <StandingsTableCell
-                      align="center"
-                      style={{ fontWeight: 'bold' }}
+    <Container className="glass">
+      <TableContainer style={{ padding: '0 50px', borderCollapse: 'unset' }}>
+        <Table style={{ borderCollapse: 'unset' }}>
+          <TableHead>
+            <TableRow>
+              <StandingsTableCell style={{ fontWeight: 'bold' }}>
+                No
+              </StandingsTableCell>
+              <StandingsTableCell></StandingsTableCell>
+              <StandingsTableCell
+                align="left"
+                style={{ width: '30%', fontWeight: 'bold' }}
+              >
+                Club
+              </StandingsTableCell>
+              <StandingsTableCell style={{ fontWeight: 'bold' }} align="center">
+                MP
+              </StandingsTableCell>
+              <StandingsTableCell style={{ fontWeight: 'bold' }} align="center">
+                W
+              </StandingsTableCell>
+              <StandingsTableCell style={{ fontWeight: 'bold' }} align="center">
+                D
+              </StandingsTableCell>
+              <StandingsTableCell style={{ fontWeight: 'bold' }} align="center">
+                L
+              </StandingsTableCell>
+              <StandingsTableCell style={{ fontWeight: 'bold' }} align="center">
+                GS
+              </StandingsTableCell>
+              <StandingsTableCell style={{ fontWeight: 'bold' }} align="center">
+                GL
+              </StandingsTableCell>
+              <StandingsTableCell style={{ fontWeight: 'bold' }} align="center">
+                GD
+              </StandingsTableCell>
+              <StandingsTableCell style={{ fontWeight: 'bold' }} align="center">
+                Points
+              </StandingsTableCell>
+              <StandingsTableCell style={{ fontWeight: 'bold' }} align="center">
+                Form
+              </StandingsTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {leagueData
+              ? leagueData.standings[0].map(standing => {
+                  return (
+                    <StandingsTableRow
+                      onClick={() => navigate(`./${standing.team.id}`)}
+                      key={standing.team.id}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                      {' '}
-                      {standing.points}
-                    </StandingsTableCell>
-                    <StandingsTableCell align="center">
-                      {standing.form.split('').map((letter, idx) => {
-                        if (letter === 'W') {
-                          return (
-                            <CheckCircleIcon key={idx} htmlColor="green" />
-                          );
-                        } else if (letter === 'L') {
-                          return <CancelIcon key={idx} htmlColor="#E25B49" />;
-                        } else {
-                          return (
-                            <DoDisturbOnIcon key={idx} htmlColor="#FFF300" />
-                          );
-                        }
-                      })}
-                    </StandingsTableCell>
-                  </StandingsTableRow>
-                );
-              })
-            : null}
-        </TableBody>
-      </Table>
-    </TableContainer>
+                      <StandingsTableCell
+                        component="th"
+                        scope="row"
+                        style={{ fontWeight: 'bold' }}
+                      >
+                        {standing.rank}
+                      </StandingsTableCell>
+                      <StandingsTableCell align="left">
+                        {' '}
+                        <img src={standing.team.logo} height={50}></img>
+                      </StandingsTableCell>
+                      <StandingsTableCell
+                        align="left"
+                        style={{ fontSize: '18px' }}
+                      >
+                        {' '}
+                        {standing.team.name}
+                      </StandingsTableCell>
+                      <StandingsTableCell align="center">
+                        {standing.all.played}
+                      </StandingsTableCell>
+                      <StandingsTableCell align="center">
+                        {' '}
+                        {standing.all.win}
+                      </StandingsTableCell>
+                      <StandingsTableCell align="center">
+                        {' '}
+                        {standing.all.draw}
+                      </StandingsTableCell>
+                      <StandingsTableCell align="center">
+                        {' '}
+                        {standing.all.lose}
+                      </StandingsTableCell>
+                      <StandingsTableCell align="center">
+                        {standing.all.goals.for}
+                      </StandingsTableCell>
+                      <StandingsTableCell align="center">
+                        {standing.all.goals.against}
+                      </StandingsTableCell>
+                      <StandingsTableCell align="center">
+                        {standing.goalsDiff}
+                      </StandingsTableCell>
+                      <StandingsTableCell
+                        align="center"
+                        style={{ fontWeight: 'bold' }}
+                      >
+                        {' '}
+                        {standing.points}
+                      </StandingsTableCell>
+                      <StandingsTableCell align="center">
+                        {standing.form.split('').map((letter, idx) => {
+                          if (letter === 'W') {
+                            return (
+                              <CheckCircleIcon key={idx} htmlColor="green" />
+                            );
+                          } else if (letter === 'L') {
+                            return <CancelIcon key={idx} htmlColor="#E25B49" />;
+                          } else {
+                            return (
+                              <DoDisturbOnIcon key={idx} htmlColor="#FFF300" />
+                            );
+                          }
+                        })}
+                      </StandingsTableCell>
+                    </StandingsTableRow>
+                  );
+                })
+              : null}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Container>
   );
 };
 

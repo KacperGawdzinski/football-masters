@@ -10,7 +10,10 @@ const StatInfoGrid = (props: Props) => {
   return (
     <Grid
       container
-      style={{ display: 'flex', justifyContent: 'space-between' }}
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between'
+      }}
     >
       {props.statistics.map(stat => (
         <Grid item key={stat.attribute} sx={{ width: '140px' }}>

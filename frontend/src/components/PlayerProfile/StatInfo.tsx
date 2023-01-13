@@ -25,7 +25,7 @@ const StatInfo = (props: Props) => {
   const index = props.value.search(/[A-Za-z]/);
 
   return (
-    <Box style={{ margin: '40px 0 0 0' }}>
+    <Box style={{ margin: '00px 0 0 0' }}>
       <StatBox variant="h3" attribute={capitalizeFirstLetter(props.attribute)}>
         {index === -1 ? props.value : props.value.substring(0, index)}
       </StatBox>

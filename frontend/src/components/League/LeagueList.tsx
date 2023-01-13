@@ -1,4 +1,10 @@
-import { Box, LinearProgress, styled, Typography } from '@mui/material';
+import {
+  Box,
+  Container,
+  LinearProgress,
+  styled,
+  Typography
+} from '@mui/material';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -112,68 +118,71 @@ const LeagueList = () => {
   }, []);
 
   return (
-    <Box>
-      <Typography variant="h4">Most popular leagues</Typography>
+    <Container className="glass2">
+      <Box>
+        <Typography variant="h4">Most popular leagues</Typography>
 
-      <Box
-        style={{
-          display: 'flex',
-          margin: '30px 0',
-          gap: '20px',
-          justifyContent: 'center'
-        }}
-      >
-        {leagueData ? (
-          leagueData.map(leagueData => {
+        <Box
+          style={{
+            display: 'flex',
+            margin: '30px 0',
+            gap: '20px',
+            justifyContent: 'center',
+            flexWrap: 'wrap'
+          }}
+        >
+          {leagueData ? (
+            leagueData.map(leagueData => {
+              return (
+                <Link
+                  key={leagueData.league.id}
+                  to={`./${leagueData.league.id}`}
+                  style={{ textDecoration: 'none', color: 'black' }}
+                >
+                  <Logo>
+                    <img src={leagueData.league.logo} height={150}></img>
+                    <Typography
+                      variant="h6"
+                      style={{ textAlign: 'center', marginTop: '20px' }}
+                    >
+                      {leagueData.league.name}
+                    </Typography>
+                  </Logo>
+                </Link>
+              );
+            })
+          ) : (
+            <LinearProgress color="success" />
+          )}
+        </Box>
+        <Typography variant="h4">Select country for a top league</Typography>
+        <Box
+          style={{
+            display: 'flex',
+            gap: '10px',
+            margin: '30px 60px',
+            flexWrap: 'wrap',
+            justifyContent: 'space-around'
+          }}
+        >
+          {countryList.sort().map(country => {
             return (
-              <Link
-                key={leagueData.league.id}
-                to={`./${leagueData.league.id}`}
-                style={{ textDecoration: 'none', color: 'black' }}
-              >
-                <Logo>
-                  <img src={leagueData.league.logo} height={150}></img>
-                  <Typography
-                    variant="h6"
-                    style={{ textAlign: 'center', marginTop: '20px' }}
-                  >
-                    {leagueData.league.name}
-                  </Typography>
-                </Logo>
-              </Link>
+              <Logo key={country}>
+                <img
+                  height={100}
+                  width={160}
+                  crossOrigin="anonymous"
+                  src={`https://countryflagsapi.com/png/${country}`}
+                ></img>
+                <Typography style={{ textAlign: 'center', fontSize: '18px' }}>
+                  {country}
+                </Typography>
+              </Logo>
             );
-          })
-        ) : (
-          <LinearProgress color="success" />
-        )}
+          })}
+        </Box>
       </Box>
-      <Typography variant="h4">Select country for a top league</Typography>
-      <Box
-        style={{
-          display: 'flex',
-          gap: '10px',
-          margin: '30px 60px',
-          flexWrap: 'wrap',
-          justifyContent: 'space-around'
-        }}
-      >
-        {countryList.sort().map(country => {
-          return (
-            <Logo key={country}>
-              <img
-                height={100}
-                width={160}
-                crossOrigin="anonymous"
-                src={`https://countryflagsapi.com/png/${country}`}
-              ></img>
-              <Typography style={{ textAlign: 'center', fontSize: '18px' }}>
-                {country}
-              </Typography>
-            </Logo>
-          );
-        })}
-      </Box>
-    </Box>
+    </Container>
   );
 };
 

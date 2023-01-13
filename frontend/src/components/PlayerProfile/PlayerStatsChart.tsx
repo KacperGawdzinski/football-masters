@@ -21,8 +21,9 @@ const PlayerStatsChart = (props: Props) => {
           position: 'absolute',
           // minWidth: '100px',
           top: 87,
-          left: 85,
-          fontSize: 26
+          left: props.value === 100 ? 'calc(50% - 22px)' : 'calc(50% - 14px)',
+          fontSize: 26,
+          fontFamily: 'Roboto, sans-serif'
         }}
       >
         {`${props.value}%`}
@@ -30,7 +31,7 @@ const PlayerStatsChart = (props: Props) => {
       <PieChart
         width={200}
         height={200}
-        style={{ display: 'block', position: 'relative' }}
+        style={{ display: 'block', position: 'relative', margin: 'auto' }}
       >
         <Pie
           data={data}

@@ -68,8 +68,12 @@ function LeagueStats(props: Props) {
 
             <Grid container>
               <Grid item xs={4}>
-                <StatInfoGrid statistics={goalsStats} />
-                <StatInfoGrid statistics={tacklesStats} />
+                <Box style={{ marginTop: '40px' }}>
+                  <StatInfoGrid statistics={goalsStats} />
+                </Box>
+                <Box style={{ marginTop: '40px' }}>
+                  <StatInfoGrid statistics={tacklesStats} />
+                </Box>
               </Grid>
               <PositionRatingCards
                 position={stats.games.position}
@@ -78,8 +82,12 @@ function LeagueStats(props: Props) {
                 redCards={stats.cards.red}
               ></PositionRatingCards>
               <Grid item xs={4}>
-                <StatInfoGrid statistics={gamesStats} />
-                <StatInfoGrid statistics={substitutesStats} />
+                <Box style={{ marginTop: '40px' }}>
+                  <StatInfoGrid statistics={gamesStats} />
+                </Box>
+                <Box style={{ marginTop: '40px' }}>
+                  <StatInfoGrid statistics={substitutesStats} />
+                </Box>
               </Grid>
             </Grid>
 
