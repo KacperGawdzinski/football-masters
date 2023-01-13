@@ -27,6 +27,11 @@ const PlayerBox = styled(Box)({
 });
 
 const PlayerTile = (props: Props) => {
+  const nameWords = props.player.name.split(' ');
+  if (nameWords.length > 2) {
+    props.player.name = `${nameWords[0]} ${nameWords[nameWords.length - 1]}`;
+  }
+
   return (
     <Link to={`/player/${props.player.id}`} style={{ textDecoration: 'none' }}>
       <PlayerBox>
