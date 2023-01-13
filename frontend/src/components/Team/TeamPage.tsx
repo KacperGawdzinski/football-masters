@@ -290,8 +290,9 @@ const TeamPage = () => {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '30px',
-              margin: '20px 0px 0px 20px'
+              justifyContent: 'center',
+              marginTop: '20px',
+              gap: '30px'
             }}
           >
             <img src={squadData?.team.logo} />
