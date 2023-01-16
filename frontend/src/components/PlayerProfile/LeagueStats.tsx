@@ -7,16 +7,7 @@ import LeagueHeader from './LeagueHeader';
 import PositionRatingCards from './PositionRatingCards';
 import PlayerData from '../../dataTypes/PlayerData';
 import mapStatsToObject from '../../utils/mapStatsToObject';
-
-const Hr = styled('hr')({
-  display: 'block',
-  height: '1px',
-  border: 0,
-  borderTop: '2px solid #5c5c5c',
-  margin: '1em auto',
-  padding: 0,
-  width: '70%'
-});
+import Hr from '../styledComponents/Hr';
 
 const ChartWrapper = styled(Box)({
   display: 'flex',

@@ -121,7 +121,6 @@ const LeagueList = () => {
     <Container className="glass2">
       <Box>
         <Typography variant="h4">Most popular leagues</Typography>
-
         <Box
           style={{
             display: 'flex',

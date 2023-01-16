@@ -78,16 +78,8 @@ function ResponsiveAppBar() {
       style={{ backgroundColor: 'transparent' }}
       className="header"
     >
-      <Container maxWidth="xl">
+      <Container>
         <Toolbar disableGutters>
-          <div
-            style={{
-              backgroundImage: `url(/logo4.png)`,
-              height: '60px',
-              width: '270px',
-              backgroundSize: '100% 100%'
-            }}
-          />
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -149,8 +141,8 @@ function ResponsiveAppBar() {
               display: {
                 xs: 'none',
                 md: 'flex'
-              },
-              justifyContent: 'center'
+              }
+              // justifyContent: 'center'
             }}
           >
             {pages.map(page => (

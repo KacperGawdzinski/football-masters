@@ -1,4 +1,10 @@
-import { Box, Breadcrumbs, Container, Typography } from '@mui/material';
+import {
+  Box,
+  Breadcrumbs,
+  Container,
+  LinearProgress,
+  Typography
+} from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Carousel from 'react-multi-carousel';
@@ -154,7 +160,6 @@ interface Team {
 
 const responsive = {
   superLargeDesktop: {
-    // the naming can be any, depends on you.
     breakpoint: { max: 4000, min: 2000 },
     items: 9
   },
@@ -442,7 +447,9 @@ const TeamPage = () => {
             </Box>
           ) : null}
         </Box>
-      ) : null}
+      ) : (
+        <LinearProgress color="success" />
+      )}
     </Container>
   );
 };
