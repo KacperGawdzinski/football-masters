@@ -1,59 +1,89 @@
 import { Box, Typography, Grid } from '@mui/material';
-import CalendarTile from './CalendarTile';
+import { Link } from 'react-router-dom';
+import FixtureData from '../../dataTypes/FixtureData';
+import Hr from '../styledComponents/Hr';
+import FutureFixturesGrid from './FutureFixturesGrid';
 
-const LeagueFixtures = () => {
+interface Props {
+  fixtures: FixtureData[];
+}
+
+const LeagueFixtures = (props: Props) => {
+  const date = new Date(props.fixtures[0].fixture.date);
+
   return (
     <Box>
-      {' '}
-      <Typography variant="h4" style={{ textAlign: 'center' }}>
-        Premier League
-      </Typography>
+      <Link
+        style={{ textDecoration: 'none', color: 'black', cursor: 'pointer' }}
+        to={`/leagues/${props.fixtures[0].league.id}`}
+      >
+        <Typography variant="h4" style={{ textAlign: 'center' }}>
+          {props.fixtures[0].league.name}
+        </Typography>
+      </Link>
       <Box
         style={{
           display: 'flex',
           justifyContent: 'space-around',
-          marginTop: '20px'
+          marginTop: '20px',
+          marginBottom: '40px'
         }}
       >
-        <Box style={{ display: 'flex', minWidth: '600px' }}>
-          <img
-            src={'https://media-2.api-sports.io/football/teams/41.png'}
-            height={150}
-          ></img>
+        <Box style={{ display: 'flex', minWidth: '300px', maxWidth: '500px' }}>
           <Box style={{ margin: 'auto 0' }}>
-            <Typography variant="h5">Southampton - Liverpool</Typography>
+            <img
+              src={props.fixtures[0].teams.home.logo}
+              width={'100px'}
+              height={'auto'}
+            ></img>
+          </Box>
+          <Box style={{ margin: 'auto 0', minWidth: '270px' }}>
+            <Box
+              display={'flex'}
+              style={{
+                margin: 'auto 0',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <Typography
+                variant="h5"
+                style={
+                  props.fixtures[0].teams.home.name.split(' ').length > 1
+                    ? { wordSpacing: 9999, minWidth: '50%' }
+                    : { minWidth: '50%' }
+                }
+                align={'center'}
+              >{`${props.fixtures[0].teams.home.name} `}</Typography>
+              <Typography>-</Typography>
+              <Typography
+                variant="h5"
+                style={
+                  props.fixtures[0].teams.away.name.split(' ').length > 1
+                    ? { wordSpacing: 9999, minWidth: '50%' }
+                    : { minWidth: '50%' }
+                }
+                align={'center'}
+              >{`${props.fixtures[0].teams.away.name}`}</Typography>
+            </Box>
+
             <Typography variant="body1" style={{ textAlign: 'center' }}>
-              2023-05-28 15:00
+              {date.toLocaleString().substring(0, 17)}
             </Typography>
           </Box>
-          <img
-            src={'https://media-2.api-sports.io/football/teams/40.png'}
-            height={150}
-          ></img>
+          <Box style={{ margin: 'auto 0' }}>
+            <img
+              src={props.fixtures[0].teams.away.logo}
+              width={'100px'}
+              height={'auto'}
+            ></img>
+          </Box>
         </Box>
         <Box>
-          <Grid container style={{ minWidth: '800px' }}>
-            <Grid
-              item
-              xs={6}
-              style={{ display: 'flex', flexDirection: 'column' }}
-            >
-              <CalendarTile></CalendarTile>
-              <CalendarTile></CalendarTile>
-              <CalendarTile></CalendarTile>
-            </Grid>{' '}
-            <Grid
-              item
-              xs={6}
-              style={{ display: 'flex', flexDirection: 'column' }}
-            >
-              <CalendarTile></CalendarTile>
-              <CalendarTile></CalendarTile>
-              <CalendarTile></CalendarTile>
-            </Grid>{' '}
-          </Grid>
+          <FutureFixturesGrid fixtures={props.fixtures} />
         </Box>
       </Box>
+      <Hr />
     </Box>
   );
 };

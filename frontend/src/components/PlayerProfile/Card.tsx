@@ -8,7 +8,16 @@ interface Props {
 const Card = (props: Props) => {
   return (
     <Box>
-      <img src={`./${props.type}.png`} width={50} />
+      <div
+        style={{
+          backgroundImage: `url(/${props.type}.png)`,
+          height: '50px',
+          width: '50px',
+          backgroundSize: '100% 100%',
+          margin: '0 auto 0px auto',
+          color: 'black'
+        }}
+      />
       <Typography variant="h5" style={{ textAlign: 'center' }}>
         {props.amount}
       </Typography>
