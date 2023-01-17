@@ -22,6 +22,7 @@ const SiteContainer = styled(Box)({
   backgroundSize: 'cover',
   backgroundAttachment: 'fixed'
 });
+//#bfcbc1
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
       <BrowserRouter>
         <ResponsiveAppBar></ResponsiveAppBar>
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/player/:id" element={<PlayerProfile season={2020} />} />

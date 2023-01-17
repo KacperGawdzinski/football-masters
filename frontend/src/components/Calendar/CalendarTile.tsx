@@ -2,7 +2,7 @@ import { Grid, Box, Typography } from '@mui/material';
 
 const CalendarTile = () => {
   return (
-    <Box style={{ display: 'flex' }}>
+    <Box style={{ display: 'flex', marginTop: '5px' }}>
       <img
         src={'https://media-2.api-sports.io/football/teams/33.png'}
         height={50}
