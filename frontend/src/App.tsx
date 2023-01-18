@@ -12,6 +12,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import Home from './components/Home';
+import Fixture from './components/Fixture/Fixture';
 
 const SiteContainer = styled(Box)({
   backgroundColor: '#77DD77',
@@ -33,6 +34,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/calendar" element={<Calendar />} />
+          <Route path="/fixture/:id" element={<Fixture />} />
           <Route path="/player/:id" element={<PlayerProfile season={2020} />} />
           <Route path="/leagues" element={<LeagueList />} />
           <Route path="/leagues/:league_id" element={<LeagueTable />} />

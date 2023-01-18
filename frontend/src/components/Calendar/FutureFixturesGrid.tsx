@@ -1,4 +1,5 @@
 import { Grid } from '@mui/material';
+import { Link } from 'react-router-dom';
 import FixtureData from '../../dataTypes/FixtureData';
 import CalendarTile from './CalendarTile';
 
@@ -12,14 +13,24 @@ const FutureFixturesGrid = (props: Props) => {
       <Grid item xs={6} style={{ display: 'flex', flexDirection: 'column' }}>
         {props.fixtures.map((fixture, idx) => {
           return idx <= 3 && idx > 0 ? (
-            <CalendarTile fixture={fixture}></CalendarTile>
+            <Link
+              to={`/fixture/${fixture.fixture.id}`}
+              style={{ textDecoration: 'none', color: 'black' }}
+            >
+              <CalendarTile fixture={fixture}></CalendarTile>
+            </Link>
           ) : null;
         })}
       </Grid>
       <Grid item xs={6} style={{ display: 'flex', flexDirection: 'column' }}>
         {props.fixtures.map((fixture, idx) => {
           return idx > 3 ? (
-            <CalendarTile fixture={fixture}></CalendarTile>
+            <Link
+              to={`/fixture/${fixture.fixture.id}`}
+              style={{ textDecoration: 'none', color: 'black' }}
+            >
+              <CalendarTile fixture={fixture}></CalendarTile>
+            </Link>
           ) : null;
         })}
       </Grid>{' '}
