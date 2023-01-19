@@ -7,6 +7,13 @@ interface Props {
   awayPercent: string;
 }
 
+const statNameToOriginal = new Map<string, string>([
+  ['form', 'Form'],
+  ['att', 'Attack'],
+  ['def', 'Defense'],
+  ['total', 'Total']
+]);
+
 const PercentBar = (props: Props) => {
   const percentNumberHome = parseInt(
     props.homePercent.substring(0, props.homePercent.length - 1)
@@ -30,7 +37,7 @@ const PercentBar = (props: Props) => {
 
   return (
     <Box>
-      <Typography variant="h6">{capitalizeFirstLetter(props.stat)}</Typography>
+      <Typography variant="h6">{statNameToOriginal.get(props.stat)}</Typography>
       <Box style={{ display: 'flex' }}>
         <Box
           style={{

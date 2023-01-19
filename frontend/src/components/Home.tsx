@@ -1,6 +1,11 @@
 import { Box, Breadcrumbs, Container, Typography } from '@mui/material';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+
 const Home = () => {
+  console.log(useSelector((state: RootState) => state.season.season));
+
   return (
     <Container className="glass">
       <Box>
@@ -34,14 +39,16 @@ const Home = () => {
             }}
           />
           <Box style={{ maxWidth: '500px', margin: 'auto 0' }}>
+            <Typography
+              variant="h4"
+              style={{ textAlign: 'center', fontWeight: 'bold' }}
+            >
+              A brand new portal
+            </Typography>
             <Typography variant="h5" style={{ textAlign: 'center' }}>
               Introducing a new football stats site with everything you need to
               know about your favorite teams and players
             </Typography>
-            {/* <Typography>
-            Advanced metrics, real-time updates, and easy-to-use search and
-            visualization tools. The go-to destination for any football fan.
-          </Typography> */}
           </Box>
         </Box>
         <Box
@@ -55,6 +62,12 @@ const Home = () => {
           }}
         >
           <Box style={{ maxWidth: '500px', margin: 'auto 0' }}>
+            <Typography
+              variant="h4"
+              style={{ textAlign: 'center', fontWeight: 'bold' }}
+            >
+              All in one place
+            </Typography>
             <Typography variant="h5" style={{ textAlign: 'center' }}>
               Our new football statistics site offers in-depth league, player,
               and team data, with advanced metrics, real-time updates
@@ -85,13 +98,19 @@ const Home = () => {
         >
           <div
             style={{
-              backgroundImage: `url(/calendar.png)`,
+              backgroundImage: `url(/cal2.png)`,
               height: '360px',
               width: '400px',
               backgroundSize: '100% 100%'
             }}
           />
           <Box style={{ maxWidth: '500px', margin: 'auto 0' }}>
+            <Typography
+              variant="h4"
+              style={{ textAlign: 'center', fontWeight: 'bold' }}
+            >
+              Be updated all the time
+            </Typography>
             <Typography variant="h5" style={{ textAlign: 'center' }}>
               It includes an interactive calendar of fixtures, where users can
               keep track of upcoming matches and never miss a game again

@@ -13,14 +13,22 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import '../App.css';
-import { FormControl, InputLabel, Select } from '@mui/material';
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  SelectChangeEvent
+} from '@mui/material';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { setSeason } from '../redux/seasonSlice';
+import { useDispatch } from 'react-redux';
 
 const pages = ['Home', 'Calendar', 'H2H', 'Leagues'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
+  const dispatch = useDispatch();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -41,6 +49,10 @@ function ResponsiveAppBar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleChange = (event: SelectChangeEvent<unknown>) => {
+    dispatch(setSeason(event.target.value as number));
   };
 
   const CustomSelect = styled(Select)(() => ({
@@ -178,13 +190,19 @@ function ResponsiveAppBar() {
             <CustomSelect
               labelId="demo-simple-select-label"
               id="demo-simple-select"
+              defaultValue={2022}
               // value={age}
               label="Age"
-              // onChange={handleChange}
+              onChange={handleChange}
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              <MenuItem value={2022}>2022</MenuItem>
+              <MenuItem value={2021}>2021</MenuItem>
+              <MenuItem value={2020}>2020</MenuItem>
+              <MenuItem value={2019}>2019</MenuItem>
+              <MenuItem value={2018}>2018</MenuItem>
+              <MenuItem value={2017}>2017</MenuItem>
+              <MenuItem value={2016}>2016</MenuItem>
+              <MenuItem value={2015}>2015</MenuItem>
             </CustomSelect>
           </FormControl>
           <Box sx={{ flexGrow: 0 }}>

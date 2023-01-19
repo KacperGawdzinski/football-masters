@@ -27,6 +27,8 @@ import {
 } from 'recharts';
 import BreadcrumbsLink from '../styledComponents/BreadcrumpsLink';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 interface Squad {
   team: {
@@ -182,6 +184,7 @@ const positions = ['Attacker', 'Midfielder', 'Defender', 'Goalkeeper'];
 const TeamPage = () => {
   const [squadData, setSquadData] = useState<Squad>();
   const [teamData, setTeamData] = useState<Team>();
+  const season = useSelector((state: RootState) => state.season.season);
   const params = useParams();
 
   useEffect(() => {
@@ -205,7 +208,7 @@ const TeamPage = () => {
         {
           params: {
             team: params.team_id,
-            season: '2022',
+            season: season,
             league: params.league_id
           },
           headers: {
@@ -218,7 +221,7 @@ const TeamPage = () => {
     };
     fetchSquadData();
     fetchTeamData();
-  }, []);
+  }, [season]);
 
   const homeStats: Stat[] = [
     {

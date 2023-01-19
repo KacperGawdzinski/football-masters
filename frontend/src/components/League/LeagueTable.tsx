@@ -19,6 +19,8 @@ import { API_SPORTS_KEY } from '../../config';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DoDisturbOnIcon from '@mui/icons-material/DoDisturbOn';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 interface StandingData {
   rank: number;
@@ -70,6 +72,7 @@ interface LeagueData {
 
 const LeagueTable = () => {
   const [leagueData, setLeagueData] = useState<LeagueData>();
+  const season = useSelector((state: RootState) => state.season.season);
   const params = useParams();
   const navigate = useNavigate();
 
@@ -78,7 +81,7 @@ const LeagueTable = () => {
       const response = await axios.get(
         'https://api-football-v1.p.rapidapi.com/v3/standings',
         {
-          params: { league: params.league_id, season: 2022 },
+          params: { league: params.league_id, season: season },
           headers: {
             'X-RapidAPI-Key': API_SPORTS_KEY,
             'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com'
@@ -88,7 +91,7 @@ const LeagueTable = () => {
       setLeagueData(response.data.response[0].league);
     };
     fetchLeagueData();
-  }, []);
+  }, [season]);
 
   return (
     <Container className="glass">
