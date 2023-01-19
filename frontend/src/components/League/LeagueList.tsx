@@ -20,49 +20,49 @@ const LeagueMap = new Map<number, string>([
   [71, 'Serie a (Brazil)']
 ]);
 
-const countryList = [
-  'England',
-  'Poland',
-  'Belgium',
-  'France',
-  'Spain',
-  'Netherlands',
-  'Germany',
-  'Portugal',
-  'Turkey',
-  'Italy',
-  'Saudi Arabia',
-  'Argentina',
-  'Australia',
-  'Austria',
-  'Brazil',
-  'Bulgaria',
-  'Chile',
-  'Croatia',
-  'Cyprus',
-  'Czechia',
-  'Denmark',
-  'Egypt',
-  'Ghana',
-  'Greece',
-  'India',
-  'Ireland',
-  'Israel',
-  'Jamaica',
-  'Japan',
-  'Costa Rica',
-  'Mexico',
-  'Norway',
-  'Paraguay',
-  'Peru',
-  'Romania',
-  'Slovakia',
-  'Scotland',
-  'Switzerland',
-  'USA',
-  'Wales',
-  'Hungary'
-];
+export const countryList = new Map<number, string>([
+  [39, 'England'],
+  [106, 'Poland'],
+  [144, 'Belgium'],
+  [61, 'France'],
+  [140, 'Spain'],
+  [88, 'Netherlands'],
+  [78, 'Germany'],
+  [94, 'Portugal'],
+  [203, 'Turkey'],
+  [135, 'Italy'],
+  [307, 'Saudi Arabia'],
+  [128, 'Argentina'],
+  [188, 'Australia'],
+  [218, 'Austria'],
+  [71, 'Brazil'],
+  [172, 'Bulgaria'],
+  [265, 'Chile'],
+  [210, 'Croatia'],
+  [318, 'Cyprus'],
+  [345, 'Czechia'],
+  [119, 'Denmark'],
+  [233, 'Egypt'],
+  [570, 'Ghana'],
+  [197, 'Greece'],
+  [323, 'India'],
+  [357, 'Ireland'],
+  [382, 'Israel'],
+  [322, 'Jamaica'],
+  [98, 'Japan'],
+  [162, 'Costa Rica'],
+  [262, 'Mexico'],
+  [103, 'Norway'],
+  [250, 'Paraguay'],
+  [281, 'Peru'],
+  [283, 'Romania'],
+  [332, 'Slovakia'],
+  [179, 'Scotland'],
+  [207, 'Switzerland'],
+  [253, 'USA'],
+  [110, 'Wales'],
+  [271, 'Hungary']
+]);
 
 interface LeagueData {
   league: {
@@ -164,21 +164,31 @@ const LeagueList = () => {
             justifyContent: 'space-around'
           }}
         >
-          {countryList.sort().map(country => {
-            return (
-              <Logo key={country}>
-                <img
-                  height={100}
-                  width={160}
-                  crossOrigin="anonymous"
-                  src={`https://countryflagsapi.com/png/${country}`}
-                ></img>
-                <Typography style={{ textAlign: 'center', fontSize: '18px' }}>
-                  {country}
-                </Typography>
-              </Logo>
-            );
-          })}
+          {Array.from(countryList)
+            .sort((a, b) => a[1].localeCompare(b[1]))
+            .map(el => {
+              return (
+                <Link
+                  key={el[0]}
+                  to={`/leagues/${el[0]}`}
+                  style={{ textDecoration: 'none', color: 'black' }}
+                >
+                  <Logo>
+                    <img
+                      height={100}
+                      width={160}
+                      crossOrigin="anonymous"
+                      src={`https://countryflagsapi.com/png/${el[1]}`}
+                    ></img>
+                    <Typography
+                      style={{ textAlign: 'center', fontSize: '18px' }}
+                    >
+                      {el[1]}
+                    </Typography>
+                  </Logo>
+                </Link>
+              );
+            })}
         </Box>
       </Box>
     </Container>

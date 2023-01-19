@@ -34,7 +34,12 @@ const Fixture = () => {
   return (
     <Container className="glass">
       {predictions ? (
-        <Box>
+        <Box
+          display={'flex'}
+          justifyContent={'space-around'}
+          alignItems={'center'}
+          flexDirection={'column'}
+        >
           <Typography variant="h3" textAlign={'center'}>
             Fixture
           </Typography>
@@ -42,6 +47,7 @@ const Fixture = () => {
             display={'flex'}
             justifyContent={'space-around'}
             alignItems={'center'}
+            width={'60%'}
           >
             <TeamWithLogo data={predictions} home={true} />
             <Typography variant="h4">vs</Typography>
