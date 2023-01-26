@@ -16,6 +16,7 @@ import '../App.css';
 import {
   FormControl,
   InputLabel,
+  Modal,
   Select,
   SelectChangeEvent
 } from '@mui/material';
@@ -35,6 +36,8 @@ function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
+
+  const [openModal, setOpenModal] = React.useState(false);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -91,6 +94,20 @@ function ResponsiveAppBar() {
       className="header"
     >
       <Container>
+        <Modal
+          open={openModal}
+          // onClose={handleClose}
+        >
+          <Box>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            </Typography>
+          </Box>
+        </Modal>
+
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton

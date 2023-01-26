@@ -15,7 +15,7 @@ import Home from './components/Home';
 import Fixture from './components/Fixture/Fixture';
 
 const SiteContainer = styled(Box)({
-  backgroundColor: '#77DD77',
+  backgroundColor: '#bfcbc1',
   width: '100%',
   minWidth: '100vh',
   height: '100%',
