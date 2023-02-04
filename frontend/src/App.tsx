@@ -35,7 +35,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/fixture/:id" element={<Fixture />} />
-          <Route path="/player/:id" element={<PlayerProfile season={2020} />} />
+          <Route path="/player/:id" element={<PlayerProfile />} />
           <Route path="/leagues" element={<LeagueList />} />
           <Route path="/leagues/:league_id" element={<LeagueTable />} />
           <Route path="/leagues/:league_id/:team_id" element={<TeamPage />} />

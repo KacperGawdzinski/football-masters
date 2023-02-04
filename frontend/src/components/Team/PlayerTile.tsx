@@ -40,7 +40,7 @@ const PlayerTile = (props: Props) => {
     >
       <PlayerBox>
         <Typography variant="h6" style={{ textAlign: 'center' }}>
-          {props.player.number}
+          {props.player.number}&nbsp;
         </Typography>
 
         <img

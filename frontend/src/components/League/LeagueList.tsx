@@ -7,8 +7,12 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { API_SPORTS_KEY } from '../../config';
+import { RootState } from '../../redux/store';
+import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 const LeagueMap = new Map<number, string>([
   [140, 'La Liga'],
@@ -80,6 +84,7 @@ interface LeagueData {
 
 const Logo = styled(Box)({
   padding: '10px 20px 0px 20px',
+  position: 'relative',
   maxWidth: '200px',
   display: 'flex',
   flexDirection: 'column',
@@ -92,8 +97,23 @@ const Logo = styled(Box)({
   }
 });
 
+const StarWrapper = styled(Box)({
+  position: 'absolute',
+  right: '0px',
+  top: '0px',
+  ':hover': {
+    transform: 'scale(1.1)',
+    transition: 'all .2s ease-in-out',
+    cursor: 'pointer',
+    color: 'gold'
+  }
+});
+
 const LeagueList = () => {
   const [leagueData, setLeagueData] = useState<LeagueData[]>();
+  const [starBoxLeagueNumber, setStarBoxLeagueNumber] = useState(-1);
+  const login = useSelector((state: RootState) => state.login.login);
+
   useEffect(() => {
     const fetchLeagueDataById = async () => {
       const mapToEntries = Array.from(LeagueMap.entries());
@@ -117,6 +137,10 @@ const LeagueList = () => {
     fetchLeagueDataById();
   }, []);
 
+  const renderStar = (idx: number) => {
+    setStarBoxLeagueNumber(idx);
+  };
+
   return (
     <Container className="glass2">
       <Box>
@@ -131,14 +155,21 @@ const LeagueList = () => {
           }}
         >
           {leagueData ? (
-            leagueData.map(leagueData => {
+            leagueData.map((leagueData, idx) => {
               return (
                 <Link
                   key={leagueData.league.id}
                   to={`./${leagueData.league.id}`}
                   style={{ textDecoration: 'none', color: 'black' }}
+                  onMouseOver={() => renderStar(idx)}
+                  onMouseLeave={() => renderStar(-1)}
                 >
                   <Logo>
+                    {login && idx === starBoxLeagueNumber ? (
+                      <StarWrapper>
+                        <StarBorderIcon></StarBorderIcon>
+                      </StarWrapper>
+                    ) : null}
                     <img src={leagueData.league.logo} height={150}></img>
                     <Typography
                       variant="h6"

@@ -423,13 +423,13 @@ const TeamPage = () => {
             ) : null}
           </Box>
 
-          {squadData ? (
+          {squadData && season === 2022 ? (
             <Box style={{ marginTop: '30px' }}>
               {positions.map(position => (
                 <Box key={position}>
                   <Typography
                     variant="h4"
-                    style={{ margin: '0px 0px 10px 14px' }}
+                    style={{ margin: '25px 0px 0px 14px' }}
                   >
                     {`${position}s`}
                   </Typography>
@@ -448,6 +448,13 @@ const TeamPage = () => {
                 </Box>
               ))}
             </Box>
+          ) : season !== 2022 ? (
+            <Typography
+              variant="h4"
+              style={{ textAlign: 'center', marginTop: '30px' }}
+            >
+              Unable to display players: season has ended
+            </Typography>
           ) : null}
         </Box>
       ) : (

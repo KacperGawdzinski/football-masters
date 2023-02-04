@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import seasonReducer from './seasonSlice';
+import loginReducer from './loginSlice';
 
 export const store = configureStore({
   reducer: {
-    season: seasonReducer
+    season: seasonReducer,
+    login: loginReducer
   }
 });
 

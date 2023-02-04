@@ -11,6 +11,8 @@ import { API_SPORTS_KEY } from '../../config';
 import { useParams } from 'react-router-dom';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import BreadcrumbsLink from '../styledComponents/BreadcrumpsLink';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 const PlayerHeader = styled(Box)({
   display: 'flex',
   gap: 50,
@@ -27,11 +29,8 @@ const PlayerName = styled(Box)({
   textAlign: 'center'
 });
 
-interface Props {
-  season: number;
-}
-
-function PlayerProfile(props: Props) {
+function PlayerProfile() {
+  const season = useSelector((state: RootState) => state.season.season);
   const [playerData, setPlayerData] = useState<PlayerData>();
   const params = useParams();
 
@@ -40,7 +39,7 @@ function PlayerProfile(props: Props) {
       const response = await axios.get(
         'https://api-football-v1.p.rapidapi.com/v3/players',
         {
-          params: { id: params.id, season: props.season },
+          params: { id: params.id, season },
           headers: {
             'X-RapidAPI-Key': API_SPORTS_KEY,
             'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com'
@@ -50,7 +49,7 @@ function PlayerProfile(props: Props) {
       setPlayerData(response.data.response[0]);
     };
     fetchPlayerData();
-  }, []);
+  }, [season]);
 
   const playerProperties = ['age', 'height', 'weight'];
   const playerStats: Stat[] = mapStatsToObject(
