@@ -1,7 +1,10 @@
 import {
+  Alert,
   Box,
   Container,
   LinearProgress,
+  Snackbar,
+  SnackbarOrigin,
   styled,
   Typography
 } from '@mui/material';
@@ -101,6 +104,7 @@ const StarWrapper = styled(Box)({
   position: 'absolute',
   right: '0px',
   top: '0px',
+  zIndex: '10',
   ':hover': {
     transform: 'scale(1.1)',
     transition: 'all .2s ease-in-out',
@@ -111,8 +115,13 @@ const StarWrapper = styled(Box)({
 
 const LeagueList = () => {
   const [leagueData, setLeagueData] = useState<LeagueData[]>();
+  const [likedLeagueData, setLikedLeagueData] = useState<LeagueData[]>();
+
   const [starBoxLeagueNumber, setStarBoxLeagueNumber] = useState(-1);
+  const [starBoxCountryNumber, setStarBoxCountryNumber] = useState(-1);
+
   const login = useSelector((state: RootState) => state.login.login);
+  const jwt = useSelector((state: RootState) => state.login.jwt);
 
   useEffect(() => {
     const fetchLeagueDataById = async () => {
@@ -137,13 +146,88 @@ const LeagueList = () => {
     fetchLeagueDataById();
   }, []);
 
-  const renderStar = (idx: number) => {
-    setStarBoxLeagueNumber(idx);
+  useEffect(() => {
+    fetchLeagueDataById();
+  }, [jwt]);
+
+  const fetchLeagueDataById = async () => {
+    const response = await axios.get('http://localhost:5000/favourites', {
+      headers: { 'x-access-token': jwt }
+    });
+
+    const likedLeagues = response.data.likedLeagues as number[];
+
+    const res = await Promise.all(
+      likedLeagues.map((id: number) => {
+        return axios.get('https://api-football-v1.p.rapidapi.com/v3/leagues', {
+          params: { id: id },
+          headers: {
+            'X-RapidAPI-Key': API_SPORTS_KEY,
+            'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com'
+          }
+        });
+      })
+    );
+    setLikedLeagueData(res.map(el => el.data.response[0]));
+  };
+
+  const addLeagueToFavourites = async (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    id: number
+  ) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    await axios.post(
+      'http://localhost:5000/favourites',
+      { league_id: id },
+      { headers: { 'x-access-token': jwt } }
+    );
+
+    fetchLeagueDataById();
   };
 
   return (
     <Container className="glass2">
       <Box>
+        {jwt && likedLeagueData ? (
+          <Box>
+            <Typography variant="h4">Your liked leagues</Typography>
+            <Box
+              style={{
+                display: 'flex',
+                margin: '30px 0',
+                gap: '20px',
+                justifyContent: 'center',
+                flexWrap: 'wrap'
+              }}
+            >
+              {likedLeagueData ? (
+                likedLeagueData.map((leagueData, idx) => {
+                  return (
+                    <Link
+                      key={leagueData.league.id}
+                      to={`./${leagueData.league.id}`}
+                      style={{ textDecoration: 'none', color: 'black' }}
+                    >
+                      <Logo>
+                        <img src={leagueData.league.logo} height={150}></img>
+                        <Typography
+                          variant="h6"
+                          style={{ textAlign: 'center', marginTop: '20px' }}
+                        >
+                          {leagueData.league.name}
+                        </Typography>
+                      </Logo>
+                    </Link>
+                  );
+                })
+              ) : (
+                <LinearProgress color="success" />
+              )}
+            </Box>
+          </Box>
+        ) : null}
         <Typography variant="h4">Most popular leagues</Typography>
         <Box
           style={{
@@ -161,13 +245,19 @@ const LeagueList = () => {
                   key={leagueData.league.id}
                   to={`./${leagueData.league.id}`}
                   style={{ textDecoration: 'none', color: 'black' }}
-                  onMouseOver={() => renderStar(idx)}
-                  onMouseLeave={() => renderStar(-1)}
+                  onMouseOver={() => setStarBoxLeagueNumber(idx)}
+                  onMouseLeave={() => setStarBoxLeagueNumber(-1)}
                 >
                   <Logo>
                     {login && idx === starBoxLeagueNumber ? (
-                      <StarWrapper>
-                        <StarBorderIcon></StarBorderIcon>
+                      <StarWrapper
+                        onClick={e =>
+                          addLeagueToFavourites(e, leagueData.league.id)
+                        }
+                      >
+                        <Box>
+                          <StarBorderIcon></StarBorderIcon>
+                        </Box>
                       </StarWrapper>
                     ) : null}
                     <img src={leagueData.league.logo} height={150}></img>
@@ -197,14 +287,25 @@ const LeagueList = () => {
         >
           {Array.from(countryList)
             .sort((a, b) => a[1].localeCompare(b[1]))
-            .map(el => {
+            .map((el, indexx) => {
               return (
                 <Link
                   key={el[0]}
                   to={`/leagues/${el[0]}`}
                   style={{ textDecoration: 'none', color: 'black' }}
+                  onMouseOver={() => setStarBoxCountryNumber(indexx)}
+                  onMouseLeave={() => setStarBoxCountryNumber(-1)}
                 >
                   <Logo>
+                    {login && indexx === starBoxCountryNumber ? (
+                      <StarWrapper
+                        onClick={e => addLeagueToFavourites(e, el[0])}
+                      >
+                        <Box>
+                          <StarBorderIcon></StarBorderIcon>
+                        </Box>
+                      </StarWrapper>
+                    ) : null}
                     <img
                       height={100}
                       width={160}
